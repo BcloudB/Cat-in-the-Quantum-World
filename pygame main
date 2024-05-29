@@ -1,0 +1,712 @@
+import sys
+import pygame
+from pygame.locals import *
+import time
+
+pygame.init()
+
+FPS = 15
+FramePerSec = pygame.time.Clock()
+
+white = (255,255,255)
+
+sysfont = pygame.font.Font("fonts/온글잎 류뚱체.ttf", 30)
+
+titleImg = pygame.image.load("images/title.png")
+startImg = pygame.image.load("images/starticon.png")
+quitImg = pygame.image.load("images/quiticon.png")
+clickStartImg = pygame.image.load("images/clickedStartIcon.png")
+clickQuitImg = pygame.image.load("images/clickedQuitIcon.png")
+selectImg = pygame.image.load("images/selectImg.png")
+s1Img = pygame.image.load("images/s1Img.png")
+s2Img = pygame.image.load("images/s2Img.png")
+s3Img = pygame.image.load("images/s3Img.png")
+clickeds1Img = pygame.image.load("images/clickeds1Img.png")
+clickeds2Img = pygame.image.load("images/clickeds2Img.png")
+clickeds3Img = pygame.image.load("images/clickeds3Img.png")
+stage1Img = pygame.image.load("images/stage1Img.png")
+stage2Img = pygame.image.load("images/stage2Img.png")
+stage3Img = pygame.image.load("images/stage3Img.png")
+eImg = pygame.image.load("images/eImg.png")
+electronImg = pygame.image.load("images/electronImg.png")
+shoot = pygame.image.load("images/shoot.png")
+Egamestart = pygame.image.load("images/Egamestart.png")
+clickedEgamestart = pygame.image.load("images/clickedEgamestart.png")
+setButton = pygame.image.load("images/setButton.png")
+clickedsetButton = pygame.image.load("images/clickedsetButton.png")
+stage1WobserverImg = pygame.image.load("images/stage1WobserverImg.png")
+nextImg = pygame.image.load("images/nextImg.png")
+clickednextImg = pygame.image.load("images/clickednextImg.png")
+esmileImg = pygame.image.load("images/esmileImg.png")
+exitIcon = pygame.image.load("images/exitIcon.png")
+clickedexitIcon = pygame.image.load("images/clickedexitIcon.png")
+catIcon = pygame.image.load("images/catIcon.png")
+clickedcatIcon = pygame.image.load("images/clickedcatIcon.png")
+cat = pygame.image.load("images/cat.png")
+catcatched = pygame.image.load("images/catcatched.png")
+CgameImg = pygame.image.load("images/CgameImg.png")
+setupImg = pygame.image.load("images/setupImg.png")
+clickedsetupImg = pygame.image.load("images/clickedsetupImg.png")
+setup = pygame.image.load("images/setup.png")
+Cgame2Img = pygame.image.load("images/Cgame2Img.png")
+closeImg = pygame.image.load("images/closeImg.png")
+clickedcloseImg = pygame.image.load("images/clickedcloseImg.png")
+Cgame3Img = pygame.image.load("images/Cgame3Img.png")
+Cgame4Img = pygame.image.load("images/Cgame4Img.png")
+Cgame5Img = pygame.image.load("images/Cgame5Img.png")
+Cgame6Img = pygame.image.load("images/Cgame6Img.png")
+c1Img = pygame.image.load("images/c1Img.png")
+c2Img = pygame.image.load("images/c2Img.png")
+c3Img = pygame.image.load("images/c3Img.png")
+clickedc1Img = pygame.image.load("images/clickedc1Img.png")
+clickedc2Img = pygame.image.load("images/clickedc2Img.png")
+clickedc3Img = pygame.image.load("images/clickedc3Img.png")
+catAliveImg = pygame.image.load("images/catAliveImg.png")
+catDeadImg = pygame.image.load("images/catDeadImg.png")
+catWithImg = pygame.image.load("images/catWithImg.png")
+q1Img = pygame.image.load("images/q1Img.png")
+q2Img = pygame.image.load("images/q2Img.png")
+q3Img = pygame.image.load("images/q3Img.png")
+clickedq1Img = pygame.image.load("images/clickedq1Img.png")
+clickedq2Img = pygame.image.load("images/clickedq2Img.png")
+clickedq3Img = pygame.image.load("images/clickedq3Img.png")
+
+Qt1Img = pygame.image.load("images/Qt1Img.png")
+Qt2Img = pygame.image.load("images/Qt2Img.png")
+OImg = pygame.image.load("images/OImg.png")
+XImg = pygame.image.load("images/XImg.png")
+clickedOImg = pygame.image.load("images/clickedOImg.png")
+clickedXImg = pygame.image.load("images/clickedXImg.png")
+
+As1Img = pygame.image.load("images/As1Img.png")
+As2Img = pygame.image.load("images/As2Img.png")
+notAsImg = pygame.image.load("images/notAsImg.png")
+
+explain1Img = pygame.image.load("images/explain1.png")
+explain2Img = pygame.image.load("images/explain2.png")
+explain3Img = pygame.image.load("images/explain3.png")
+explain4Img = pygame.image.load("images/explain4.png")
+
+endingImg = pygame.image.load("images/endingImg.png")
+restartImg = pygame.image.load("images/restartImg.png")
+clickrestartImg = pygame.image.load("images/clickrestartImg.png")
+
+clock = pygame.time.Clock()
+
+gameDisplay = pygame.display.set_mode((640,480))
+gameDisplay.fill(white)
+pygame.display.set_caption("Cat In the Quantum World")
+electronXY = []
+
+cat_Rect = cat.get_rect()
+cat_Rect.centerx = round(640/2)
+cat_Rect.centery = round(480/2)
+
+class Button:
+    def __init__(self, img_in, x, y, width, height, img_act, x_act, y_act, action = None):
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        if x + width > mouse[0] > x and y + height > mouse[1] > y:
+            gameDisplay.blit(img_act, (x_act, y_act))
+            if click[0] and action != None:
+                time.sleep(0.2)
+                action()
+        else:
+            gameDisplay.blit(img_in,(x,y))
+
+def quitgame():
+        pygame.quit()
+        sys.exit()
+
+def mainmenu():
+    menu = True
+    while menu:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+
+        gameDisplay.fill(white)
+
+        backGround = gameDisplay.blit(titleImg, (0,0))
+        startButton = Button(startImg, 200, 240, 200, 100, clickStartImg, 200, 240, selectmenu)
+        quitButton = Button(quitImg, 200, 320, 170, 100, clickQuitImg, 200, 320, quitgame)
+        pygame.display.update()
+        clock.tick(15)
+
+def selectmenu():
+    select = True
+
+    while select:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+
+        gameDisplay.fill(white)
+        gameDisplay.blit(selectImg, (0,0))
+        gameDisplay.blit(s1Img, (25, 100))
+        gameDisplay.blit(s2Img, (25, 200))
+        gameDisplay.blit(s3Img, (25, 300))
+        
+        s1Button = Button(s1Img, 25, 100, 640, 70, clickeds1Img, 25, 100, stage1)
+        s2Button = Button(s2Img, 25, 200, 640, 70, clickeds2Img, 25, 200, stage2)
+        s3Button = Button(s3Img, 25, 300, 640, 70, clickeds3Img, 25, 300, stage3)
+        pygame.display.update()
+        clock.tick(15)
+
+def stage1():
+    stage1 = True
+    t2 = False
+    
+    while stage1:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            t2 = True
+
+        gameDisplay.fill(white)
+        gameDisplay.blit(stage1Img, (0,0))
+        gameDisplay.blit(eImg, (100, 180))
+        text1 = sysfont.render("안녕! 나는 전자야!", False, (0,0,0))
+        text3 = sysfont.render("스페이스바를 눌러서 나를 발사해줘!", False, (0,0,0))
+        gameDisplay.blit(text1, (280,200))
+        
+        if t2 == True:
+            text1 = sysfont.render("안녕! 나는 전자야!", False, (white))
+            gameDisplay.blit(text1, (280,200))
+            gameDisplay.blit(text3, (280,200))
+            EgamestartButton = Button(Egamestart, 280, 250, 100, 60, clickedEgamestart, 280, 250, Egame)
+        
+                
+        pygame.display.update()
+        clock.tick(15)
+
+def Egame():
+    shootE1 = True
+
+    fighterSize = shoot.get_rect().size
+    fighterWidth = fighterSize[0]
+    fighterHeight = fighterSize[1]
+
+    x = 640 * 0.45
+    y = 480 * 0.9
+    fighterX = 0
+    countE = 0
+    
+    while shootE1:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+            if event.type in [pygame.KEYDOWN]:
+                if event.key == pygame.K_LEFT:
+                    fighterX -= 15
+                elif event.key == pygame.K_RIGHT:
+                    fighterX += 15
+                elif event.key == pygame.K_SPACE:
+                    countE += 1
+                    electronX = x + fighterWidth-45
+                    electronY = y - fighterHeight+40
+                    electronXY.append([electronX, electronY])
+                    
+            if event.type in [pygame.KEYUP]:
+                if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                    fighterX = 0
+
+        gameDisplay.fill(white)
+        gameDisplay.blit(stage1Img, (0,0))
+        gameDisplay.blit(shoot, (x,y))
+
+        if len(electronXY) != 0:
+            for i, exy in enumerate(electronXY):
+                exy[1] -= 10
+                electronXY[i][1] = exy[1]
+
+                if exy[1] <= 0:
+                    try:
+                        electronXY.remove(exy)
+                    except:
+                        pass
+        if len(electronXY) != 0:
+            for ex, ey in electronXY:
+                gameDisplay.blit(electronImg, (ex, ey))
+
+        if countE > 10:
+            Egame2()
+        
+        x += fighterX
+        if x < 0:
+            x = 0
+        elif x > 640 - fighterWidth:
+            x = 640 - fighterWidth
+                
+        pygame.display.update()
+        clock.tick(15)
+
+def Egame2():
+    s = False
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                s = True
+            
+        gameDisplay.fill(white)
+        gameDisplay.blit(stage1Img, (0,0))
+        gameDisplay.blit(eImg, (100, 180))
+        
+        text1 = sysfont.render("이 정도면 충분해!", False, (0,0,0))
+        text3 = sysfont.render("이제 관찰자를 설치하고 발사해보자!", False, (0,0,0))
+        gameDisplay.blit(text1, (280,200))
+        
+        if s == True:
+            text1 = sysfont.render("이 정도면 충분해!", False, (white))
+            gameDisplay.blit(text1, (280,200))
+            gameDisplay.blit(text3, (250,200))
+            EgamestartButton = Button(Egamestart, 280, 250, 100, 60, clickedEgamestart, 280, 250, Egame3)
+
+        
+        pygame.display.update()
+        clock.tick(15)
+
+def Egame3():
+    x = 640 * 0.45
+    y = 480 * 0.9
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+                
+        gameDisplay.fill(white)
+        gameDisplay.blit(stage1Img, (0,0))
+        gameDisplay.blit(shoot, (x,y))
+        SetButton = Button(setButton, 285, 230, 80, 50, clickedsetButton, 285, 230, Egame4)
+    
+        pygame.display.update()
+        clock.tick(15)
+
+def Egame4():
+    fighterSize = shoot.get_rect().size
+    fighterWidth = fighterSize[0]
+    fighterHeight = fighterSize[1]
+
+    x = 640 * 0.45
+    y = 480 * 0.9
+    fighterX = 0
+    countE = 0
+    
+    while True:
+        for event2 in pygame.event.get():
+            if event2.type == pygame.QUIT:
+                quitgame()
+            if event2.type in [pygame.KEYDOWN]:
+                if event2.key == pygame.K_LEFT:
+                    fighterX -= 15
+                elif event2.key == pygame.K_RIGHT:
+                    fighterX += 15
+                elif event2.key == pygame.K_SPACE:
+                    countE += 1
+                    electronX = x + fighterWidth-45
+                    electronY = y - fighterHeight+40
+                    electronXY.append([electronX, electronY])
+                    
+            if event2.type in [pygame.KEYUP]:
+                if event2.key == pygame.K_LEFT or event2.key == pygame.K_RIGHT:
+                    fighterX = 0
+
+        gameDisplay.fill(white)
+        gameDisplay.blit(stage1WobserverImg, (0,0))
+        gameDisplay.blit(shoot, (x,y))
+
+        if len(electronXY) != 0:
+            for i, exy in enumerate(electronXY):
+                exy[1] -= 10
+                electronXY[i][1] = exy[1]
+
+                if exy[1] <= 0:
+                    try:
+                        electronXY.remove(exy)
+                    except:
+                        pass
+        if len(electronXY) != 0:
+            for ex, ey in electronXY:
+                gameDisplay.blit(electronImg, (ex, ey))
+
+        if countE > 10:
+            explain1()
+        
+        x += fighterX
+        if x < 0:
+            x = 0
+        elif x > 640 - fighterWidth:
+            x = 640 - fighterWidth
+
+    
+        pygame.display.update()
+        clock.tick(15)
+
+def explain1():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+                
+        gameDisplay.fill(white)
+        gameDisplay.blit(explain1Img, (0,0))
+        gameDisplay.blit(eImg, (100, 180))
+        
+        nextButton = Button(nextImg, 280, 400, 80, 50, clickednextImg, 280, 400, explain2)
+        pygame.display.update()
+        clock.tick(15)
+
+def explain2():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+                
+        gameDisplay.fill(white)
+        gameDisplay.blit(explain2Img, (0,0))
+        gameDisplay.blit(eImg, (100, 180))
+        
+        nextButton = Button(nextImg, 280, 400, 80, 50, clickednextImg, 280, 400, explain3)
+        pygame.display.update()
+        clock.tick(15)
+
+def explain3():      
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+                
+        gameDisplay.fill(white)
+        gameDisplay.blit(explain3Img, (0,0))
+        gameDisplay.blit(eImg, (100, 180))
+        
+        nextButton = Button(nextImg, 280, 400, 80, 50, clickednextImg, 280, 400, explain4)
+        pygame.display.update()
+        clock.tick(15)
+
+def explain4():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+                
+        gameDisplay.fill(white)
+        gameDisplay.blit(explain4Img, (0,0))
+        gameDisplay.blit(esmileImg, (230, 250))
+        
+        nextButton = Button(exitIcon, 280, 420, 80, 50, clickedexitIcon, 280, 420, selectmenu)
+        pygame.display.update()
+        clock.tick(15)
+        
+def stage2():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+                
+        gameDisplay.fill(white)
+        gameDisplay.blit(stage2Img, (0,0))
+        
+        catButton = Button(catIcon, 260, 250, 80, 108, clickedcatIcon, 260, 250, Cgame)
+        pygame.display.update()
+        clock.tick(15)
+
+def Cgame():
+    MOVE = False
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+                
+        gameDisplay.fill(white)
+        gameDisplay.blit(CgameImg, (0,0))
+        
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            pygame.mouse.get_rel()
+            mouse_pos = pygame.mouse.get_pos()
+            if mouse_pos[0] > cat_Rect.left and mouse_pos[0] < cat_Rect.right and \
+            mouse_pos[1] > cat_Rect.top and mouse_pos[1] < cat_Rect.bottom:
+                MOVE = True
+                pygame.mouse.set_cursor(*pygame.cursors.broken_x)
+        if event.type == pygame.MOUSEBUTTONUP:
+            MOVE = False
+            pygame.mouse.set_cursor(*pygame.cursors.arrow)
+        if event.type == pygame.MOUSEMOTION:
+            if MOVE:
+                x,y,z = pygame.mouse.get_pressed()
+                if x:
+                    mx, my = pygame.mouse.get_rel()
+                    cat_Rect.x += mx
+                    cat_Rect.y += my
+        if cat_Rect.left < 0:
+            cat_Rect.left = 0
+
+        if cat_Rect.right > 640:
+            cat_Rect.right = 640
+        
+        if cat_Rect.top < 0:
+            cat_Rect.top = 0
+        
+        if cat_Rect.bottom > 480:
+            cat_Rect.bottom = 480
+        S = False
+        gameDisplay.blit(cat, cat_Rect)
+        installButton = Button(setupImg, 280, 370, 80, 50, clickedsetupImg, 280, 370, Cgame2)
+
+        pygame.display.update()
+        clock.tick(15)
+
+def Cgame2():
+    MOVE = False
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+                
+        gameDisplay.fill(white)
+        gameDisplay.blit(Cgame2Img, (0,0))
+        
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            pygame.mouse.get_rel()
+            mouse_pos = pygame.mouse.get_pos()
+            if mouse_pos[0] > cat_Rect.left and mouse_pos[0] < cat_Rect.right and \
+            mouse_pos[1] > cat_Rect.top and mouse_pos[1] < cat_Rect.bottom:
+                MOVE = True
+                pygame.mouse.set_cursor(*pygame.cursors.broken_x)
+        if event.type == pygame.MOUSEBUTTONUP:
+            MOVE = False
+            pygame.mouse.set_cursor(*pygame.cursors.arrow)
+        if event.type == pygame.MOUSEMOTION:
+            if MOVE:
+                x,y,z = pygame.mouse.get_pressed()
+                if x:
+                    mx, my = pygame.mouse.get_rel()
+                    cat_Rect.x += mx
+                    cat_Rect.y += my
+        if cat_Rect.left < 0:
+            cat_Rect.left = 0
+
+        if cat_Rect.right > 640:
+            cat_Rect.right = 640
+        
+        if cat_Rect.top < 0:
+            cat_Rect.top = 0
+        
+        if cat_Rect.bottom > 480:
+            cat_Rect.bottom = 480
+        S = False
+        gameDisplay.blit(cat, cat_Rect)
+        installButton = Button(closeImg, 280, 370, 80, 50, clickedcloseImg, 280, 370, Cgame3)
+
+        pygame.display.update()
+        clock.tick(15)
+
+def Cgame3():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+                
+        gameDisplay.fill(white)
+        gameDisplay.blit(Cgame3Img, (0,0))
+        
+        nextButton = Button(nextImg, 280, 390, 80, 50, clickednextImg, 280, 390, Cgame4)
+        pygame.display.update()
+        clock.tick(15)
+
+def Cgame4():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+                
+        gameDisplay.fill(white)
+        gameDisplay.blit(Cgame4Img, (0,0))
+        
+        nextButton = Button(nextImg, 280, 390, 80, 50, clickednextImg, 280, 390, Cgame5)
+        pygame.display.update()
+        clock.tick(15)
+
+def Cgame5():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+                
+        gameDisplay.fill(white)
+        gameDisplay.blit(Cgame5Img, (0,0))
+        
+        c1Button = Button(c1Img, 100, 150, 440, 70, clickedc1Img, 100, 150, catDead)
+        c2Button = Button(c2Img, 100, 250, 440, 70, clickedc2Img, 100, 250, catAlive)
+        c3Button = Button(c3Img, 100, 350, 440, 70, clickedc3Img, 100, 350, catWith)
+        pygame.display.update()
+        clock.tick(15)
+
+def catDead():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+                
+        gameDisplay.fill(white)
+        gameDisplay.blit(catDeadImg, (0,0))
+        
+        closeButton = Button(closeImg, 280, 390, 80, 50, clickedcloseImg, 280, 390, Cgame5)
+        pygame.display.update()
+        clock.tick(15)
+
+def catAlive():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+                
+        gameDisplay.fill(white)
+        gameDisplay.blit(catAliveImg, (0,0))
+        
+        closeButton = Button(closeImg, 280, 390, 80, 50, clickedcloseImg, 280, 390, Cgame5)
+        pygame.display.update()
+        clock.tick(15)
+
+def catWith():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+                
+        gameDisplay.fill(white)
+        gameDisplay.blit(catWithImg, (0,0))
+        
+        nextButton = Button(nextImg, 280, 390, 80, 50, clickednextImg, 280, 390, Cgame6)
+        pygame.display.update()
+        clock.tick(15)
+        
+def Cgame6():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+                
+        gameDisplay.fill(white)
+        gameDisplay.blit(Cgame6Img, (0,0))
+        
+        nextButton = Button(exitIcon, 280, 390, 80, 50, clickedexitIcon, 280, 390, selectmenu)
+        pygame.display.update()
+        clock.tick(15)
+
+def stage3():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+
+        gameDisplay.fill(white)
+        gameDisplay.blit(stage3Img, (0,0))
+        
+        q1Button = Button(q1Img, 25, 100, 640, 100, clickedq1Img, 25, 100, Q1)
+        q2Button = Button(q2Img, 25, 200, 640, 100, clickedq2Img, 25, 200, Q2)
+        pygame.display.update()
+        clock.tick(15)
+
+def Q1():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+
+        gameDisplay.fill(white)
+        gameDisplay.blit(Qt1Img, (0,0))
+        
+        OButton = Button(OImg, 25, 200, 640, 100, clickedOImg, 25, 200, notAs1)
+        XButton = Button(XImg, 25, 300, 640, 100, clickedXImg, 25, 300, As1)
+
+        pygame.display.update()
+        clock.tick(15)
+
+def Q2():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+
+        gameDisplay.fill(white)
+        gameDisplay.blit(Qt2Img, (0,0))
+        
+        OButton = Button(OImg, 25, 200, 640, 100, clickedOImg, 25, 200, As2)
+        XButton = Button(XImg, 25, 300, 640, 100, clickedXImg, 25, 300, notAs2)
+        
+        pygame.display.update()
+        clock.tick(15)
+
+def notAs1():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+
+        gameDisplay.fill(white)
+        gameDisplay.blit(notAsImg, (0,0))
+
+        closeButton = Button(closeImg, 280, 390, 80, 50, clickedcloseImg, 280, 390, Q1)
+       
+        pygame.display.update()
+        clock.tick(15)  
+
+def notAs2():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+
+        gameDisplay.fill(white)
+        gameDisplay.blit(notAsImg, (0,0))
+
+        closeButton = Button(closeImg, 280, 390, 80, 50, clickedcloseImg, 280, 390, Q2)
+       
+        pygame.display.update()
+        clock.tick(15) 
+
+def As1():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+
+        gameDisplay.fill(white)
+        gameDisplay.blit(As1Img, (0,0))
+
+        closeButton = Button(closeImg, 280, 390, 80, 50, clickedcloseImg, 280, 390, stage3)
+        pygame.display.update()
+        clock.tick(15)
+
+def As2():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+
+        gameDisplay.fill(white)
+        gameDisplay.blit(As2Img, (0,0))
+
+        closeButton = Button(closeImg, 280, 390, 80, 50, clickedcloseImg, 280, 390, ending)
+        pygame.display.update()
+        clock.tick(15)
+
+def ending():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quitgame()
+
+        gameDisplay.fill(white)
+        gameDisplay.blit(endingImg, (0,0))
+        restartButton = Button(restartImg, 170, 300, 240, 80, clickrestartImg, 170, 300, mainmenu)
+        quitButton = Button(quitImg, 200, 360, 170, 80, clickQuitImg, 200, 360, quitgame)
+
+        pygame.display.update()
+        clock.tick(15)
+
+mainmenu()
